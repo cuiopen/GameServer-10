@@ -1,0 +1,7 @@
+﻿  main.cpp
+d:\code\c++\protobuf\3rd\src\google\protobuf\io\coded_stream.h(869): warning C4800: “google::protobuf::internal::Atomic32”: 将值强制为布尔值“true”或“false”(性能警告)
+d:\code\c++\protobuf\3rd\src\google\protobuf\wire_format_lite.h(863): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
+d:\code\c++\protobuf\3rd\src\google\protobuf\wire_format_lite.h(874): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
+d:\code\c++\protobuf\3rd\src\google\protobuf\generated_message_util.h(160): warning C4800: “google::protobuf::uint32”: 将值强制为布尔值“true”或“false”(性能警告)
+  protobuf.vcxproj -> D:\code\c++\protobuf\proj.win32\Debug\protobuf.exe
+  protobuf.vcxproj -> D:\code\c++\protobuf\proj.win32\Debug\protobuf.pdb (Full PDB)

@@ -1,0 +1,26 @@
+20180519 20:22:15 DEBUG d:\mserver\apps\test\main.cpp:27  
+1526732535
+20180519 20:22:15 DEBUG d:\mserver\apps\test\main.cpp:28  
+1526659200
+20180519 20:22:15 DEBUG d:\mserver\apps\test\main.cpp:29  
+1517414400
+20180519 20:22:15 DEBUG d:\mserver\apps\test\main.cpp:35  
+2018-05-18 00:00:00
+20180519 20:22:18 DEBUG d:\mserver\apps\test\main.cpp:15  
+on_logger_timer
+20180519 20:22:21 DEBUG d:\mserver\apps\test\main.cpp:15  
+on_logger_timer
+20180519 20:26:47 DEBUG d:\mserver\apps\test\main.cpp:27  
+1526732807
+20180519 20:26:47 DEBUG d:\mserver\apps\test\main.cpp:28  
+1526659200
+20180519 20:26:47 DEBUG d:\mserver\apps\test\main.cpp:29  
+1517414400
+20180519 20:26:47 DEBUG d:\mserver\apps\test\main.cpp:35  
+2018-05-18 00:00:00
+20180519 20:26:50 DEBUG d:\mserver\apps\test\main.cpp:15  
+on_logger_timer
+20180519 20:26:53 DEBUG d:\mserver\apps\test\main.cpp:15  
+on_logger_timer
+20180519 20:26:56 DEBUG d:\mserver\apps\test\main.cpp:15  
+on_logger_timer
