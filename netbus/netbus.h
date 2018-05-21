@@ -8,6 +8,7 @@ public:
 public:
 	void Init();
 	void StartTcpServer(int port);
+	void StartUdpServer(int port);
 	void StartWSServer(int port);//websocketÆô¶¯½Ó¿Ú
 	void Run();
 private:

@@ -177,6 +177,9 @@
     <ClInclude Include="..\..\..\utils\logger.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\netbus\udp_session.h">
+      <Filter>netbus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\3rd\libuv\src\fs-poll.c">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\utils\logger.cc">
       <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\netbus\udp_session.cpp">
+      <Filter>netbus</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

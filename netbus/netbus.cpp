@@ -6,6 +6,7 @@
 #include "tcp_protocol.h"
 #include "proto_man.h"
 #include "service_man.h"
+#include "udp_session.h"
 
 #include <iostream>
 #include <string>
@@ -20,8 +21,38 @@ Netbus::instance()
 
 extern"C"
 {
+	struct udp_recv_buf
+	{
+		char* recv_buf;
+		size_t max_recv_len;
+
+	};
+
+
+	static void
+	udp_uv_alloc_buf(uv_handle_t* handle,
+					 size_t suggested_size,
+					 uv_buf_t* buf)
+	{
+		udp_recv_buf* udp_buf = (udp_recv_buf*)handle->data;
+		if (udp_buf->max_recv_len<suggested_size)
+		{
+			if (udp_buf->recv_buf)
+			{
+				free(udp_buf->recv_buf);
+				udp_buf->recv_buf = NULL;
+			}
+			udp_buf->recv_buf = (char*)malloc(suggested_size);
+			udp_buf->max_recv_len = suggested_size;
+		}
+		buf->base = udp_buf->recv_buf;
+		buf->len = suggested_size;
+	}
+
+
+
 	static void 
-	on_recv_client_cmd (UVSession* s, unsigned char* body, int len)
+	on_recv_client_cmd (Session* s, unsigned char* body, int len)
 	{
 		printf("client command !!!!\n");
 
@@ -38,6 +69,20 @@ extern"C"
 			}
 			
 		}
+	}
+	static void
+		after_recv(uv_udp_t* handle,
+			ssize_t nread,
+			const uv_buf_t* buf,
+			const struct sockaddr* addr,
+			unsigned flags)
+	{
+		UdpSession udp_s;
+		udp_s.udp_handler = handle;
+		udp_s.addr = addr;
+		uv_ip4_name((struct sockaddr_in*)addr, udp_s.c_address, 32);
+		udp_s.c_port = ntohs(((struct sockaddr_in*)addr)->sin_port);
+		on_recv_client_cmd((Session*)&udp_s, (unsigned char*)buf->base, nread);
 	}
 
 	static void 
@@ -63,7 +108,7 @@ extern"C"
 
 			unsigned char* raw_data = pkg_data + head_size;
 			// recv client command;
-			on_recv_client_cmd(s, raw_data, pkg_size - head_size);
+			on_recv_client_cmd((Session*)s, raw_data, pkg_size - head_size);
 			// end 
 
 			if (s->recved > pkg_size)
@@ -112,7 +157,7 @@ extern"C"
 			unsigned char* mask = raw_data - 4;
 			WSProtocol::ParserWSRecvData(raw_data, mask, pkg_size - head_size);
 			// recv client command;
-			on_recv_client_cmd(s, raw_data, pkg_size - head_size);
+			on_recv_client_cmd((Session*)s, raw_data, pkg_size - head_size);
 			// end 
 
 			if (s->recved > pkg_size) 
@@ -215,6 +260,23 @@ extern"C"
 	}
 }
 
+void 
+Netbus::StartUdpServer(int port)
+{
+	uv_udp_t* server = (uv_udp_t*)malloc(sizeof(uv_udp_t));
+	memset(server, 0, sizeof(uv_udp_t));
+
+	uv_udp_init(uv_default_loop(), server);
+	udp_recv_buf* buf = (udp_recv_buf*)malloc(sizeof(udp_recv_buf));
+	memset(buf, 0, sizeof(udp_recv_buf));
+	server->data = (udp_recv_buf*)buf;
+
+	sockaddr_in addr;
+	uv_ip4_addr("127.0.0.1", port, &addr);
+	int ret = uv_udp_bind(server, (const struct sockaddr*)&addr, 0);
+
+	uv_udp_recv_start(server, udp_uv_alloc_buf, after_recv);
+}
 
 void 
 Netbus::StartTcpServer(int port)
