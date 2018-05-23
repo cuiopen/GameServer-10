@@ -186,6 +186,9 @@
     <ClInclude Include="..\..\..\database\mysql_wrapper.h">
       <Filter>database</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\database\redis_wrapper.h">
+      <Filter>database</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\3rd\libuv\src\fs-poll.c">
@@ -345,6 +348,9 @@
       <Filter>netbus</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\database\mysql_wrapper.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\database\redis_wrapper.cpp">
       <Filter>database</Filter>
     </ClCompile>
   </ItemGroup>

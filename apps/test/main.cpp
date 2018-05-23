@@ -5,16 +5,49 @@
 #include "../../utils/logger.h"
 #include "../../utils/time_list.h"
 #include "../../utils/timestamp.h"
+#include "../../database/mysql_wrapper.h"
 
 #include <iostream>
 #include <string>
 
 
-static
-void on_logger_timer(void* udata) {
+static void 
+on_logger_timer(void* udata) 
+{
 	log_debug("on_logger_timer");
 }
+static void
+on_query_cb(const char* err, std::vector<std::vector<std::string>>* result)
+{
+ 	if (err != NULL)
+	{
+		printf("%s\n", err);
+		return;
+	}
+	printf("query success\n");
 
+}
+
+static void 
+on_open_cb(const char* err, void* context)
+{
+	if (err!=NULL)
+	{
+		printf("%s\n", err);
+		return;
+	}
+	printf("connect success\n");
+	MysqlWrapper::Query(context, "select * from man", on_query_cb);
+	//MysqlWrapper::Close(context);
+}
+
+
+static void	
+TestDB()
+{
+	MysqlWrapper::Connect("127.0.0.1", 3306, "test", "root","123456", on_open_cb);
+	
+}
 
 
 
@@ -34,6 +67,8 @@ int main(int argc,char* argv[])
 	//timestamp2date(yesterday, "%Y-%m-%d %H:%M:%S", out_buf, sizeof(out_buf));
 	//log_debug("%s", out_buf);
 	//schedule(on_logger_timer, NULL, 3000, -1);
+	TestDB();
+
 	Netbus *nb = Netbus::instance();
 	nb->Init();
 	nb->StartTcpServer(6080);

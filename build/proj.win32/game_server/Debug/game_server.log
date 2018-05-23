@@ -1,4 +1,166 @@
-﻿libprotobufd.lib(arena.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(arena.obj)”或在“D:\mserver\build\proj.win32\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+﻿  time_list.c
+  timestamp.c
+d:\mserver\utils\timestamp.c(428): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\time.h(505): note: 参见“localtime”的声明
+d:\mserver\utils\timestamp.c(437): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\time.h(505): note: 参见“localtime”的声明
+  json.c
+d:\mserver\3rd\mjson\json.c(132): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(346): note: 参见“strncpy”的声明
+d:\mserver\3rd\mjson\json.c(281): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(346): note: 参见“strncpy”的声明
+d:\mserver\3rd\mjson\json.c(313): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(346): note: 参见“strncpy”的声明
+d:\mserver\3rd\mjson\json.c(1190): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
+d:\mserver\3rd\mjson\json.c(1338): warning C4477: “fprintf”: 格式字符串“%lX”需要类型“unsigned long”的参数，但可变参数 1 拥有了类型“int64_t”
+  d:\mserver\3rd\mjson\json.c(1338): note: 请考虑在格式字符串中使用“%llX”
+  d:\mserver\3rd\mjson\json.c(1338): note: 请考虑在格式字符串中使用“%I64X”
+  winsock.c
+  winapi.c
+  util.c
+d:\mserver\3rd\libuv\src\win\util.c(432): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(346): note: 参见“strncpy”的声明
+d:\mserver\3rd\libuv\src\win\util.c(634): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstdio.h(1665): note: 参见“_snwprintf”的声明
+  udp.c
+  tty.c
+d:\mserver\3rd\libuv\src\win\tty.c(2100): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _close. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_io.h(457): note: 参见“close”的声明
+  timer.c
+  thread.c
+  tcp.c
+  stream.c
+  snprintf.c
+  signal.c
+  req.c
+  process.c
+d:\mserver\3rd\libuv\src\win\process.c(204): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+d:\mserver\3rd\libuv\src\win\process.c(214): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+d:\mserver\3rd\libuv\src\win\process.c(224): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+d:\mserver\3rd\libuv\src\win\process.c(235): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+d:\mserver\3rd\libuv\src\win\process.c(463): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+d:\mserver\3rd\libuv\src\win\process.c(474): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+d:\mserver\3rd\libuv\src\win\process.c(515): warning C4996: 'wcsrev': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _wcsrev. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(607): note: 参见“wcsrev”的声明
+d:\mserver\3rd\libuv\src\win\process.c(589): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(121): note: 参见“wcscpy”的声明
+d:\mserver\3rd\libuv\src\win\process.c(791): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(121): note: 参见“wcscpy”的声明
+  process-stdio.c
+  poll.c
+  pipe.c
+d:\mserver\3rd\libuv\src\win\pipe.c(188): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _close. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_io.h(457): note: 参见“close”的声明
+  loop-watcher.c
+  正在生成代码...
+  正在编译...
+  handle.c
+  getnameinfo.c
+  getaddrinfo.c
+  fs.c
+d:\mserver\3rd\libuv\src\win\fs.c(118): warning C4996: '__p__fmode': This function or variable may be unsafe. Consider using _get_fmode instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdlib.h(237): note: 参见“__p__fmode”的声明
+d:\mserver\3rd\libuv\src\win\fs.c(401): warning C4996: 'umask': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _umask. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_io.h(546): note: 参见“umask”的声明
+d:\mserver\3rd\libuv\src\win\fs.c(402): warning C4996: 'umask': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _umask. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_io.h(546): note: 参见“umask”的声明
+d:\mserver\3rd\libuv\src\win\fs.c(808): warning C4996: 'wcstombs': This function or variable may be unsafe. Consider using wcstombs_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdlib.h(1008): note: 参见“wcstombs”的声明
+d:\mserver\3rd\libuv\src\win\fs.c(1550): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+  fs-event.c
+d:\mserver\3rd\libuv\src\win\fs-event.c(78): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+d:\mserver\3rd\libuv\src\win\fs-event.c(102): warning C4996: 'wcsdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _wcsdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(573): note: 参见“wcsdup”的声明
+d:\mserver\3rd\libuv\src\win\fs-event.c(109): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+d:\mserver\3rd\libuv\src\win\fs-event.c(117): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(204): note: 参见“wcsncpy”的声明
+d:\mserver\3rd\libuv\src\win\fs-event.c(409): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstdio.h(1665): note: 参见“_snwprintf”的声明
+  error.c
+  dl.c
+  core.c
+  async.c
+  version.c
+  uv-common.c
+  threadpool.c
+d:\mserver\3rd\libuv\src\threadpool.c(147): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdlib.h(1183): note: 参见“getenv”的声明
+  inet.c
+d:\mserver\3rd\libuv\src\inet.c(62): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(346): note: 参见“strncpy”的声明
+d:\mserver\3rd\libuv\src\inet.c(139): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
+d:\mserver\3rd\libuv\src\inet.c(152): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: 参见“strcpy”的声明
+  fs-poll.c
+  http_parser.c
+  sha1.c
+  md5.c
+  base64_encoder.c
+  base64_decoder.c
+  正在生成代码...
+  logger.cc
+d:\mserver\utils\logger.cc(35): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
+d:\mserver\utils\logger.cc(46): warning C4996: 'gmtime': This function or variable may be unsafe. Consider using gmtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\time.h(495): note: 参见“gmtime”的声明
+d:\mserver\utils\logger.cc(64): warning C4996: 'gmtime': This function or variable may be unsafe. Consider using gmtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\time.h(495): note: 参见“gmtime”的声明
+d:\mserver\utils\logger.cc(68): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
+d:\mserver\utils\logger.cc(111): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
+  cache_alloc.cpp
+  ws_protocol.cpp
+d:\mserver\netbus\ws_protocol.cpp(64): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(346): note: 参见“strncpy”的声明
+d:\mserver\netbus\ws_protocol.cpp(95): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
+d:\mserver\netbus\ws_protocol.cpp(99): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
+  udp_session.cpp
+  tcp_protocol.cpp
+  session_uv.cpp
+  service_man.cpp
+  service.cpp
+  proto_man.cpp
+d:\mserver\netbus\proto_man.cpp(43): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(552): note: 参见“strdup”的声明
+  netbus.cpp
+  mysql_wrapper.cpp
+d:\mserver\database\mysql_wrapper.cpp(66): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(552): note: 参见“strdup”的声明
+d:\mserver\database\mysql_wrapper.cpp(128): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(552): note: 参见“strdup”的声明
+d:\mserver\database\mysql_wrapper.cpp(193): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(552): note: 参见“strdup”的声明
+d:\mserver\database\mysql_wrapper.cpp(195): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(552): note: 参见“strdup”的声明
+d:\mserver\database\mysql_wrapper.cpp(196): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(552): note: 参见“strdup”的声明
+d:\mserver\database\mysql_wrapper.cpp(197): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(552): note: 参见“strdup”的声明
+d:\mserver\database\mysql_wrapper.cpp(235): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(552): note: 参见“strdup”的声明
+  pf_cmd_map.cc
+  game.pb.cc
+d:\mserver\3rd\protobuf\google\protobuf\io\coded_stream.h(869): warning C4800: “google::protobuf::internal::Atomic32”: 将值强制为布尔值“true”或“false”(性能警告)
+d:\mserver\3rd\protobuf\google\protobuf\wire_format_lite.h(863): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
+d:\mserver\3rd\protobuf\google\protobuf\wire_format_lite.h(874): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
+d:\mserver\3rd\protobuf\google\protobuf\generated_message_util.h(160): warning C4800: “google::protobuf::uint32”: 将值强制为布尔值“true”或“false”(性能警告)
+  main.cpp
+  正在生成代码...
+libprotobufd.lib(arena.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(arena.obj)”或在“D:\mserver\build\proj.win32\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
 libprotobufd.lib(extension_set.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(extension_set.obj)”或在“D:\mserver\build\proj.win32\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
 libprotobufd.lib(generated_message_util.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(generated_message_util.obj)”或在“D:\mserver\build\proj.win32\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
 libprotobufd.lib(coded_stream.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(coded_stream.obj)”或在“D:\mserver\build\proj.win32\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
