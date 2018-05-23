@@ -102,9 +102,9 @@ bool ProtoMan::DecodeCmdMsg(unsigned char* cmd, int cmd_len, struct CmdMsg** out
 			}
 			msg->body = (void*)pro_msg;
 		}
-		*out_msg = msg;
-		return true;
 	}
+	*out_msg = msg;
+	return true;
 }
 
 void ProtoMan::CmdMsgFree(struct CmdMsg* msg)

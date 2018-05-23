@@ -1,0 +1,220 @@
+#include "mysql_wrapper.h"
+#include "uv.h"
+#include "mysql.h"
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define my_malloc malloc
+#define my_free free
+
+
+struct mysql_context
+{
+	void* pConn;
+	uv_mutex_t lock;
+};
+
+struct connect_req
+{
+	char* ip;
+	int port;
+	char* db_name;
+	char* uname;
+	char* upwd;
+	void(*open_cb)(const char* err, void* context);
+
+	char* err;
+	void* context;
+
+	void* updata;
+
+};
+
+struct query_req
+{
+	void* context;
+	char* sql;
+	char* error;
+	void(*query_cb)(const char* err, std::vector<std::vector<std::string>>* result);
+	std::vector<std::vector<std::string>>* res;
+};
+
+
+extern "C"
+{
+	static void
+	connect_work(uv_work_t* req)
+	{
+		connect_req* r = (connect_req*)req->data;
+		MYSQL* pConn = mysql_init(NULL);
+		if (mysql_real_connect(pConn, r->ip, r->uname, r->upwd, r->db_name, r->port, NULL, 0))
+		{
+			mysql_context* c = (mysql_context*)my_malloc(sizeof(mysql_context));
+			memset(c, 0, sizeof(mysql_context));
+
+			c->pConn = pConn;
+			uv_mutex_init(&c->lock);
+			r->context = pConn;
+			r->err;
+		}
+		else
+		{
+			r->context = NULL;
+			r->err =strdup(mysql_error(pConn));
+		}
+
+	}
+
+	static void
+	on_work_complete(uv_work_t* req, int status)
+	{
+		connect_req* r = (connect_req*)req->data;
+		r->open_cb(r->err, r->context);
+		if (r->ip)
+		{
+			free(r->ip);
+		}
+		if (r->db_name)
+		{
+			free(r->db_name);
+		}
+		if (r->err)
+		{
+			free(r->err);
+		}
+		if (r->uname)
+		{
+			free(r->uname);
+		}
+		if (r->upwd)
+		{
+			free(r->upwd);
+		}
+		free(r);
+		free(req);
+	}
+
+	static void
+	close_work(uv_work_t* req)
+	{
+		mysql_context* c = (mysql_context*)req->data;
+		MYSQL* pConn = (MYSQL*)c->pConn;
+		mysql_close(pConn); 
+	}
+
+	static void
+	on_work_close(uv_work_t* req, int status)
+	{
+		my_free(req);
+	}
+
+	static void
+	query_work(uv_work_t* req)
+	{
+		query_req* r = (query_req*)req->data;
+		mysql_context* c = (mysql_context*)r->context;
+		MYSQL* pConn = (MYSQL*)c->pConn; 
+		uv_mutex_lock(&c->lock);
+		int ret = mysql_query(pConn, r->sql);
+		if (ret!=0)
+		{
+			r->error = strdup(mysql_error(pConn));
+			r->res = NULL;
+		}
+		r->error = NULL;
+		MYSQL_RES* res = mysql_store_result(pConn);
+		if (!res)
+		{
+			r->res = NULL;
+			uv_mutex_unlock(&c->lock);
+			return;
+		}
+		r->res = new std::vector<std::vector<std::string>>;
+		int filed_num = mysql_num_fields(res);
+		std::vector<std::string> empty;
+		MYSQL_ROW row;
+		std::vector<std::vector<std::string>>::iterator end_elem;
+		while (row=mysql_fetch_row(res))
+		{
+			r->res->push_back(empty);
+			end_elem = r->res->end()-1;
+			for (int i = 0; i < filed_num; i++)
+			{
+				end_elem->push_back(row[i]);
+			}
+		}
+		mysql_free_result(res);
+		uv_mutex_unlock(&c->lock);
+	}
+
+	static void
+	on_query_complete(uv_work_t* req, int status)
+	{
+		query_req* r = (query_req*)req->data;
+		r->query_cb(r->error, r->res);
+		
+		if (r->sql)
+		{
+			free(r->sql);
+		}
+		if (r->error)
+		{
+			free(r->error);
+		}
+		if (r->res)
+		{
+			free(r->res);
+		}
+		free(r);
+		free(req);
+	}
+
+}
+
+
+
+
+
+void 
+MysqlWrapper::Connect(char* ip, int port, char* db_name, char* uname, char* pwd,						    void(*open_cb)(const char* err, void* context))
+{
+	uv_work_t* w = (uv_work_t*)my_malloc(sizeof(uv_work_t));
+	memset(w, 0, sizeof(uv_work_t));
+	connect_req* r = (connect_req*)my_malloc(sizeof(connect_req));
+	memset(r, 0, sizeof(struct connect_req));
+
+	r->ip = strdup(ip);
+	r->port = port;
+	r->db_name = strdup(db_name);
+	r->uname = strdup(uname);
+	r->upwd = strdup(pwd);
+
+	w->data = (void*)r;
+	uv_queue_work(uv_default_loop(), w, connect_work, on_work_complete);
+
+}
+
+void MysqlWrapper::Close(void* context)
+{
+	uv_work_t* w = (uv_work_t*)my_malloc(sizeof(uv_work_t));
+	memset(w, 0, sizeof(uv_work_t));
+	w->data = (context);
+	uv_queue_work(uv_default_loop(), w, close_work, on_work_close);
+}
+
+void 
+MysqlWrapper::Query(void* context, char* sql, void(*query_cb)(const char* err,						      std::vector<std::vector<std::string>>* result))
+{
+	uv_work_t* w = (uv_work_t*)my_malloc(sizeof(uv_work_t));
+	memset(w, 0, sizeof(uv_work_t));
+	query_req* r = (query_req*)my_malloc(sizeof(query_req));
+	memset(r, 0, sizeof(query_req));
+	r->context = context;
+	r->query_cb = query_cb;
+	r->sql = sql;
+	w->data = (void*)r;
+	uv_queue_work(uv_default_loop(), w, query_work, on_query_complete);
+
+}
