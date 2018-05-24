@@ -2,6 +2,9 @@
 #define __REDIS_WRAPPER_H__
 #include <vector>
 #include <string>
+
+struct redisReply;
+
 class RedisWrapper 
 {
 public:
@@ -9,7 +12,7 @@ public:
 
 	static void Close(void* context);
 
-	static void Query(void* context,char* sql,void(*query_cb)(const char* err, std::vector<std::vector<std::string>>* result));
+	static void Query(void* context,char* cmd,void(*query_cb)(const char* err, redisReply* replay));
 };
 
 

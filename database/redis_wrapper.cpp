@@ -1,6 +1,12 @@
+#ifdef WIN32
+#include <hiredis.h>
+#define NO_QFORKIMPL //这一行必须加才能正常使用
+#include <Win32_Interop/win32fixes.h>
+#endif // WIN32
+
 #include "redis_wrapper.h"
 #include "uv.h"
-//#include ""
+
 
 #include <string.h>
 #include <stdio.h>
@@ -10,7 +16,7 @@
 #define my_free free
 
 
-struct mysql_context
+struct redis_context
 {
 	void* pConn;
 	uv_mutex_t lock;
@@ -21,9 +27,6 @@ struct connect_req
 {
 	char* ip;
 	int port;
-	char* db_name;
-	char* uname;
-	char* upwd;
 	void(*open_cb)(const char* err, void* context);
 
 	char* err;
@@ -35,10 +38,10 @@ struct connect_req
 struct query_req
 {
 	void* context;
-	char* sql;
+	char* cmd;
 	char* error;
-	void(*query_cb)(const char* err, std::vector<std::vector<std::string>>* result);
-	std::vector<std::vector<std::string>>* res;
+	void(*query_cb)(const char* err, redisReply* replay);
+	redisReply* res;
 };
 
 
@@ -48,24 +51,22 @@ extern "C"
 	connect_work(uv_work_t* req)
 	{
 		connect_req* r = (connect_req*)req->data;
-		MYSQL* pConn = mysql_init(NULL);
-		if (mysql_real_connect(pConn, r->ip, r->uname, r->upwd, r->db_name, r->port, NULL, 0))
+		struct timeval timeout = { 5,0 };
+		redisContext* rc = redisConnectWithTimeout(r->ip, r->port, timeout);
+		if (rc->err)
 		{
-			mysql_context* c = (mysql_context*)my_malloc(sizeof(mysql_context));
-			memset(c, 0, sizeof(mysql_context));
-
-			c->pConn = pConn;
-			
-			uv_mutex_init(&c->lock);
-			r->context = c;
-			r->err = NULL;
+			r->err = strdup(rc->errstr);
+			r->context = NULL;
+			redisFree(rc);
 		}
 		else
 		{
-			r->context = NULL;
-			r->err =strdup(mysql_error(pConn));
+			redis_context* c = (redis_context*)my_malloc(sizeof(redis_context));
+			memset(c, 0, sizeof(redis_context));
+			c->pConn = rc;
+			uv_mutex_init(&c->lock);
+			r->context = (void*)c;
 		}
-
 	}
 
 	static void
@@ -77,21 +78,9 @@ extern "C"
 		{
 			free(r->ip);
 		}
-		if (r->db_name)
-		{
-			free(r->db_name);
-		}
 		if (r->err)
 		{
 			free(r->err);
-		}
-		if (r->uname)
-		{
-			free(r->uname);
-		}
-		if (r->upwd)
-		{
-			free(r->upwd);
 		}
 		free(r);
 		free(req);
@@ -100,17 +89,19 @@ extern "C"
 	static void
 	close_work(uv_work_t* req)
 	{
-		mysql_context* c = (mysql_context*)req->data;
-		uv_mutex_lock(&c->lock);
-		MYSQL* pConn = (MYSQL*)c->pConn;
-		mysql_close(pConn); 
-		uv_mutex_unlock(&c->lock);
+		redis_context* r = (redis_context*)req->data;
+		//MYSQL* pConn = (MYSQL*)c->pConn;
+		redisContext* c = (redisContext*)r->pConn;
+		uv_mutex_lock(&r->lock);
+		redisFree(c);
+		//mysql_close(pConn); 
+		uv_mutex_unlock(&r->lock);
 	}
 
 	static void
 	on_close_complete(uv_work_t* req, int status)
 	{
-		mysql_context* c = (mysql_context*)req->data;
+		redis_context* c = (redis_context*)req->data;
 		my_free(c);
 		my_free(req);
 	}
@@ -118,39 +109,19 @@ extern "C"
 	static void
 	query_work(uv_work_t* req)
 	{
+
+
 		query_req* r = (query_req*)req->data;
-		mysql_context* c = (mysql_context*)r->context;
-		MYSQL* pConn = (MYSQL*)c->pConn; 
+		redis_context* c = (redis_context*)r->context;
+		redisContext* rc = (redisContext*)c->pConn;
 		uv_mutex_lock(&c->lock);
-		int ret = mysql_query(pConn, r->sql);
-		if (ret!=0)
-		{
-			r->error = strdup(mysql_error(pConn));
-			r->res = NULL;
-		}
 		r->error = NULL;
-		MYSQL_RES* res = mysql_store_result(pConn);
-		if (!res)
+		redisReply* res =(redisReply*)redisCommand(rc, r->cmd);
+		if (res)
 		{
-			r->res = NULL;
-			uv_mutex_unlock(&c->lock);
-			return;
+			r->res = res;
 		}
-		r->res = new std::vector<std::vector<std::string>>;
-		int filed_num = mysql_num_fields(res);
-		std::vector<std::string> empty;
-		MYSQL_ROW row;
-		std::vector<std::vector<std::string>>::iterator end_elem;
-		while (row=mysql_fetch_row(res))
-		{
-			r->res->push_back(empty);
-			end_elem = r->res->end()-1;
-			for (int i = 0; i < filed_num; i++)
-			{
-				end_elem->push_back(row[i]);
-			}
-		}
-		mysql_free_result(res);
+
 		uv_mutex_unlock(&c->lock);
 	}
 
@@ -159,10 +130,9 @@ extern "C"
 	{
 		query_req* r = (query_req*)req->data;
 		r->query_cb(r->error, r->res);
-		
-		if (r->sql)
+		if (r->cmd)
 		{
-			free(r->sql);
+			free(r->cmd);
 		}
 		if (r->error)
 		{
@@ -170,7 +140,7 @@ extern "C"
 		}
 		if (r->res)
 		{
-			free(r->res);
+			freeReplyObject(r->res);
 		}
 		free(r);
 		free(req);
@@ -183,7 +153,7 @@ extern "C"
 
 
 void 
-RedisWrapper::Connect(char* ip, int port, char* db_name, char* uname, char* pwd,						    void(*open_cb)(const char* err, void* context))
+RedisWrapper::Connect(char* ip, int port,void(*open_cb)(const char* err, void* context))
 {
 	uv_work_t* w = (uv_work_t*)my_malloc(sizeof(uv_work_t));
 	memset(w, 0, sizeof(uv_work_t));
@@ -192,9 +162,6 @@ RedisWrapper::Connect(char* ip, int port, char* db_name, char* uname, char* pwd,
 
 	r->ip = strdup(ip);
 	r->port = port;
-	r->db_name = strdup(db_name);
-	r->uname = strdup(uname);
-	r->upwd = strdup(pwd);
 	r->open_cb = open_cb;
 
 	w->data = (void*)r;
@@ -204,24 +171,19 @@ RedisWrapper::Connect(char* ip, int port, char* db_name, char* uname, char* pwd,
 
 void RedisWrapper::Close(void* context)
 {
-	mysql_context* c = (mysql_context*)context;
-	//if (c->is_closing)
-	//{
-	//	return;
-	//}
+	
 	uv_work_t* w = (uv_work_t*)my_malloc(sizeof(uv_work_t));
 	memset(w, 0, sizeof(uv_work_t));
 	w->data = (context);
-
-	
+	//uv_mutex_lock(&((redis_context*)context)->lock);
 	//c->is_closing = 1;
 	uv_queue_work(uv_default_loop(), w, close_work, on_close_complete);
 }
 
 void 
-RedisWrapper::Query(void* context, char* sql, void(*query_cb)(const char* err,						      std::vector<std::vector<std::string>>* result))
+RedisWrapper::Query(void* context, char* cmd, void(*query_cb)(const char* err,							  redisReply* replay))
 {
-	mysql_context* c = (mysql_context*)context;
+	//redisContext* c = (redisContext*)context;
 	//if (c->is_closing)
 	//{
 	//	return;
@@ -232,8 +194,9 @@ RedisWrapper::Query(void* context, char* sql, void(*query_cb)(const char* err,		
 	memset(r, 0, sizeof(query_req));
 	r->context = context;
 	r->query_cb = query_cb;
-	r->sql = strdup(sql);
+	r->cmd = strdup(cmd);
 	w->data = (void*)r;
+	
 	uv_queue_work(uv_default_loop(), w, query_work, on_query_complete);
 
 }

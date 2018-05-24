@@ -88,14 +88,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\mserver\build\proj.win32\mysqlclient\include;D:\mserver\3rd\libuv\include;D:\mserver\3rd\protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\mysqlclient\include;$(ProjectDir)..\..\..\3rd\libuv\include;$(ProjectDir)..\..\..\3rd\protobuf;$(ProjectDir)..\hiredis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>ws2_32.lib Psapi.lib Iphlpapi.lib Userenv.lib libprotobufd.lib libprotocd.lib libmysql.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>D:\mserver\build\proj.win32\mysqlclient\lib;D:\mserver\build\proj.win32\protobuf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>ws2_32.lib Psapi.lib Iphlpapi.lib Userenv.lib libprotobufd.lib libprotocd.lib libmysql.lib hiredis.lib Win32_Interop.lib /NODEFAULTLIB:libcmt.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\protobuf;$(ProjectDir)..\mysqlclient\lib;$(ProjectDir)..\hiredis\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

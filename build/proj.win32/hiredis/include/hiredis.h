@@ -36,7 +36,7 @@
 #ifndef _WIN32
 #include <sys/time.h> /* for struct timeval */
 #else
-#include "win32_types_hiredis.h"
+#include "..\..\hiredis\include\Win32_Interop\win32_types_hiredis.h"
 #endif
 
 #define HIREDIS_MAJOR 0
