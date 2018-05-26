@@ -7,6 +7,7 @@
 #include "../../utils/timestamp.h"
 #include "../../database/mysql_wrapper.h"
 #include "../../database/redis_wrapper.h"
+#include "../../../lua_wrapper/lua_wrapper.h"
 
 #include <iostream>
 #include <string>
@@ -85,13 +86,19 @@ int main(int argc,char* argv[])
 	//timestamp2date(yesterday, "%Y-%m-%d %H:%M:%S", out_buf, sizeof(out_buf));
 	//log_debug("%s", out_buf);
 	//schedule(on_logger_timer, NULL, 3000, -1);
-	TestRedis();
+	//TestRedis();
+
+	LuaWrapper::LuaInit();
+	LuaWrapper::LuaExec("./main.lua");
+	LuaWrapper::LuaExit();
 
 	Netbus *nb = Netbus::instance();
 	nb->Init();
 	nb->StartTcpServer(6080);
 	nb->StartUdpServer(8002);
 	nb->Run();
+
+
 
 	return 0;
 }
