@@ -1,1 +1,54 @@
-print("hello world")
+
+
+
+key = ""
+function PrintTable(table , level)
+  level = level or 1
+  local indent = ""
+  for i = 1, level do
+    indent = indent.."  "
+  end
+
+  if key ~= "" then
+    print(indent..key.." ".."=".." ".."{")
+  else
+    print(indent .. "{")
+  end
+
+  key = ""
+  for k,v in pairs(table) do
+     if type(v) == "table" then
+        key = k
+        PrintTable(v, level + 1)
+     else
+        local content = string.format("%s%s = %s", indent .. "  ",tostring(k), tostring(v))
+      print(content)  
+      end
+  end
+  print(indent .. "}")
+
+end
+
+MysqlWrapper.Connect("127.0.0.1", 3306, "test", "root","123456",function (err,context)
+    if(err) then
+        print(err)
+        return
+    else
+        print("Connect success")
+        MysqlWrapper.Query(context, "select * from test", function (err, ret)
+		if err then 
+			print(err)
+			return;
+		end
+		if ret then
+			PrintTable(ret)
+			print("query success")
+			return;
+		else
+			print("result is null")
+		end
+	end)
+        MysqlWrapper.Close(context);
+    end
+
+end )

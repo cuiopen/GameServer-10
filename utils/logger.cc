@@ -125,7 +125,8 @@ logger::log(const char* file_name,
 
 	uv_fs_req_cleanup(&writeReq);
 
-	if (g_std_out) {
+	if (g_std_out) 
+	{
 		printf("%s:%u\n[%s] %s\n", file_name, line_num, g_log_level[level], msg_content);
 	}
 }

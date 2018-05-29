@@ -49,6 +49,9 @@
     <Filter Include="lua_wrapper">
       <UniqueIdentifier>{5e80d755-aceb-4557-a87b-7c30469f9f86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rd\tolua">
+      <UniqueIdentifier>{b5a2ef19-813c-450c-b26b-e43cf2a56f98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\3rd\libuv\include\android-ifaddrs.h">
@@ -189,12 +192,6 @@
     <ClInclude Include="..\..\..\netbus\udp_session.h">
       <Filter>netbus</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\database\mysql_wrapper.h">
-      <Filter>database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\database\redis_wrapper.h">
-      <Filter>database</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\3rd\lua-5.3.4\src\lapi.h">
       <Filter>3rd\Lua</Filter>
     </ClInclude>
@@ -273,8 +270,26 @@
     <ClInclude Include="..\..\..\3rd\lua-5.3.4\src\lzio.h">
       <Filter>3rd\Lua</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\3rd\tolua\tolua_event.h">
+      <Filter>3rd\tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\3rd\tolua\tolua_fix.h">
+      <Filter>3rd\tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\3rd\tolua\tolua++.h">
+      <Filter>3rd\tolua</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\lua_wrapper\lua_wrapper.h">
       <Filter>lua_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\lua_wrapper\mysql_export_to_lua.h">
+      <Filter>lua_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\database\mysql_wrapper.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\database\redis_wrapper.h">
+      <Filter>database</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -434,12 +449,6 @@
     <ClCompile Include="..\..\..\netbus\udp_session.cpp">
       <Filter>netbus</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\database\mysql_wrapper.cpp">
-      <Filter>database</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\database\redis_wrapper.cpp">
-      <Filter>database</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\3rd\lua-5.3.4\src\lapi.c">
       <Filter>3rd\Lua</Filter>
     </ClCompile>
@@ -539,8 +548,35 @@
     <ClCompile Include="..\..\..\3rd\lua-5.3.4\src\lzio.c">
       <Filter>3rd\Lua</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_event.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_fix.cc">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_is.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_map.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_push.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_to.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\lua_wrapper\lua_wrapper.cpp">
       <Filter>lua_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\lua_wrapper\mysql_export_to_lua.cpp">
+      <Filter>lua_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\database\mysql_wrapper.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\database\redis_wrapper.cpp">
+      <Filter>database</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

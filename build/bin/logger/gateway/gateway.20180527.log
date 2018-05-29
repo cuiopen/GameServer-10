@@ -1,0 +1,12 @@
+20180527 17:05:04 ERROR trunk:0  
+./main.lua:7: 'then' expected near 'else'
+20180527 17:05:30 ERROR trunk:0  
+./main.lua:4: unexpected symbol near '{'
+20180527 17:08:23 ERROR trunk:0  
+./main.lua:10: unexpected symbol near ')'
+20180527 17:09:30 ERROR trunk:0  
+./main.lua:13: 'end' expected (to close 'function' at line 2) near <eof>
+20180527 17:33:15 ERROR ./main.lua:8  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20180527 17:33:43 DEBUG ./main.lua:11  
+success

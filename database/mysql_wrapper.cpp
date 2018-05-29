@@ -1,10 +1,13 @@
-#include "mysql_wrapper.h"
-#include "uv.h"
-#include "mysql.h"
-
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
+
+#include "uv.h"
+#ifdef WIN32
+#include <winsock.h>
+#endif
+#include "mysql.h"
+#include "mysql_wrapper.h"
 
 #define my_malloc malloc
 #define my_free free
@@ -24,12 +27,12 @@ struct connect_req
 	char* db_name;
 	char* uname;
 	char* upwd;
-	void(*open_cb)(const char* err, void* context);
+	void(*open_cb)(const char* err, void* context, void* udata);
 
 	char* err;
 	void* context;
 
-
+	void* udata;
 };
 
 struct query_req
@@ -37,8 +40,9 @@ struct query_req
 	void* context;
 	char* sql;
 	char* error;
-	void(*query_cb)(const char* err, std::vector<std::vector<std::string>>* result);
-	std::vector<std::vector<std::string>>* res;
+	void(*query_cb)(const char* err, MYSQL_RES* res,void* udata);
+	MYSQL_RES* res;
+	void * udata;
 };
 
 
@@ -72,7 +76,7 @@ extern "C"
 	on_work_complete(uv_work_t* req, int status)
 	{
 		connect_req* r = (connect_req*)req->data;
-		r->open_cb(r->err, r->context);
+		r->open_cb(r->err, r->context, r->udata);
 		if (r->ip)
 		{
 			free(r->ip);
@@ -130,13 +134,13 @@ extern "C"
 		}
 		r->error = NULL;
 		MYSQL_RES* res = mysql_store_result(pConn);
-		if (!res)
-		{
-			r->res = NULL;
-			uv_mutex_unlock(&c->lock);
-			return;
-		}
-		r->res = new std::vector<std::vector<std::string>>;
+		//if (!res)
+		//{
+		//	r->res = NULL;
+		//	uv_mutex_unlock(&c->lock);
+		//	return;
+		//}
+		r->res = res;/*new std::vector<std::vector<std::string>>;
 		int filed_num = mysql_num_fields(res);
 		std::vector<std::string> empty;
 		MYSQL_ROW row;
@@ -149,8 +153,8 @@ extern "C"
 			{
 				end_elem->push_back(row[i]);
 			}
-		}
-		mysql_free_result(res);
+		}*/
+		//mysql_free_result(res);
 		uv_mutex_unlock(&c->lock);
 	}
 
@@ -158,7 +162,7 @@ extern "C"
 	on_query_complete(uv_work_t* req, int status)
 	{
 		query_req* r = (query_req*)req->data;
-		r->query_cb(r->error, r->res);
+		r->query_cb(r->error, r->res,r->udata);
 		
 		if (r->sql)
 		{
@@ -170,7 +174,7 @@ extern "C"
 		}
 		if (r->res)
 		{
-			free(r->res);
+			mysql_free_result(r->res);
 		}
 		free(r);
 		free(req);
@@ -183,7 +187,7 @@ extern "C"
 
 
 void 
-MysqlWrapper::Connect(char* ip, int port, char* db_name, char* uname, char* pwd,						    void(*open_cb)(const char* err, void* context))
+MysqlWrapper::Connect(char* ip, int port, char* db_name, char* uname, char* pwd,						    void(*open_cb)(const char* err, void* context, void* udata), void* udata)
 {
 	uv_work_t* w = (uv_work_t*)my_malloc(sizeof(uv_work_t));
 	memset(w, 0, sizeof(uv_work_t));
@@ -196,6 +200,7 @@ MysqlWrapper::Connect(char* ip, int port, char* db_name, char* uname, char* pwd,
 	r->uname = strdup(uname);
 	r->upwd = strdup(pwd);
 	r->open_cb = open_cb;
+	r->udata = udata;
 
 	w->data = (void*)r;
 	uv_queue_work(uv_default_loop(), w, connect_work, on_work_complete);
@@ -218,8 +223,7 @@ void MysqlWrapper::Close(void* context)
 	uv_queue_work(uv_default_loop(), w, close_work, on_close_complete);
 }
 
-void 
-MysqlWrapper::Query(void* context, char* sql, void(*query_cb)(const char* err,						      std::vector<std::vector<std::string>>* result))
+void MysqlWrapper::Query(void* context, char* sql, void(*query_cb)(const char* err,						      MYSQL_RES* result, void* udata), void* udata)
 {
 	mysql_context* c = (mysql_context*)context;
 	//if (c->is_closing)
@@ -233,6 +237,7 @@ MysqlWrapper::Query(void* context, char* sql, void(*query_cb)(const char* err,		
 	r->context = context;
 	r->query_cb = query_cb;
 	r->sql = strdup(sql);
+	r->udata = udata;
 	w->data = (void*)r;
 	uv_queue_work(uv_default_loop(), w, query_work, on_query_complete);
 

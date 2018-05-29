@@ -1,0 +1,64 @@
+﻿  base64_decoder.c
+  fs-poll.c
+..\..\..\3rd\libuv\src\fs-poll.c(22): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  inet.c
+..\..\..\3rd\libuv\src\inet.c(27): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  threadpool.c
+d:\mserver\3rd\libuv\src\uv-common.h(40): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  uv-common.c
+..\..\..\3rd\libuv\src\uv-common.c(22): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  version.c
+..\..\..\3rd\libuv\src\version.c(22): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  async.c
+..\..\..\3rd\libuv\src\win\async.c(24): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  core.c
+..\..\..\3rd\libuv\src\win\core.c(32): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  dl.c
+..\..\..\3rd\libuv\src\win\dl.c(22): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  error.c
+..\..\..\3rd\libuv\src\win\error.c(28): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  fs-event.c
+..\..\..\3rd\libuv\src\win\fs-event.c(27): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  fs.c
+..\..\..\3rd\libuv\src\win\fs.c(33): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  getaddrinfo.c
+..\..\..\3rd\libuv\src\win\getaddrinfo.c(24): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  getnameinfo.c
+..\..\..\3rd\libuv\src\win\getnameinfo.c(25): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  handle.c
+..\..\..\3rd\libuv\src\win\handle.c(26): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  loop-watcher.c
+..\..\..\3rd\libuv\src\win\loop-watcher.c(24): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  pipe.c
+..\..\..\3rd\libuv\src\win\pipe.c(28): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  poll.c
+..\..\..\3rd\libuv\src\win\poll.c(25): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  process-stdio.c
+..\..\..\3rd\libuv\src\win\process-stdio.c(27): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  process.c
+..\..\..\3rd\libuv\src\win\process.c(31): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  正在编译...
+  req.c
+..\..\..\3rd\libuv\src\win\req.c(24): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  signal.c
+..\..\..\3rd\libuv\src\win\signal.c(24): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  stream.c
+..\..\..\3rd\libuv\src\win\stream.c(24): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  tcp.c
+..\..\..\3rd\libuv\src\win\tcp.c(25): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  thread.c
+..\..\..\3rd\libuv\src\win\thread.c(26): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  timer.c
+..\..\..\3rd\libuv\src\win\timer.c(25): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  tty.c
+..\..\..\3rd\libuv\src\win\tty.c(37): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  udp.c
+..\..\..\3rd\libuv\src\win\udp.c(25): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  util.c
+..\..\..\3rd\libuv\src\win\util.c(30): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  winapi.c
+..\..\..\3rd\libuv\src\win\winapi.c(24): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  winsock.c
+..\..\..\3rd\libuv\src\win\winsock.c(25): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory
+  time_list.c
+..\..\..\utils\time_list.c(5): fatal error C1083: 无法打开包括文件: “uv.h”: No such file or directory

@@ -88,7 +88,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\mysqlclient\include;$(ProjectDir)..\..\..\3rd\libuv\include;$(ProjectDir)..\..\..\3rd\protobuf;$(ProjectDir)..\hiredis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\mysqlclient\include;$(ProjectDir)..\..\..\3rd\libuv\include;$(ProjectDir)..\..\..\3rd\protobuf;$(ProjectDir)..\hiredis\include;$(SolutionDir)..\..\3rd\tolua;$(SolutionDir)..\..\3rd\lua-5.3.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
@@ -97,6 +97,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>ws2_32.lib Psapi.lib Iphlpapi.lib Userenv.lib libprotobufd.lib libprotocd.lib libmysql.lib hiredis.lib Win32_Interop.lib /NODEFAULTLIB:libcmt.lib %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>$(ProjectDir)..\protobuf;$(ProjectDir)..\mysqlclient\lib;$(ProjectDir)..\hiredis\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -111,6 +112,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>mysqlcppconn8.lib  mysqlcppconn8-static.lib %(AdditionalOptions)</AdditionalOptions>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -128,6 +130,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,6 +148,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -205,11 +209,15 @@
     <ClInclude Include="..\..\..\3rd\lua-5.3.4\src\lvm.h" />
     <ClInclude Include="..\..\..\3rd\lua-5.3.4\src\lzio.h" />
     <ClInclude Include="..\..\..\3rd\mjson\json.h" />
+    <ClInclude Include="..\..\..\3rd\tolua\tolua++.h" />
+    <ClInclude Include="..\..\..\3rd\tolua\tolua_event.h" />
+    <ClInclude Include="..\..\..\3rd\tolua\tolua_fix.h" />
     <ClInclude Include="..\..\..\apps\test\proto\game.pb.h" />
     <ClInclude Include="..\..\..\apps\test\proto\pf_cmd_map.h" />
     <ClInclude Include="..\..\..\database\mysql_wrapper.h" />
     <ClInclude Include="..\..\..\database\redis_wrapper.h" />
     <ClInclude Include="..\..\..\lua_wrapper\lua_wrapper.h" />
+    <ClInclude Include="..\..\..\lua_wrapper\mysql_export_to_lua.h" />
     <ClInclude Include="..\..\..\netbus\netbus.h" />
     <ClInclude Include="..\..\..\netbus\proto_man.h" />
     <ClInclude Include="..\..\..\netbus\service.h" />
@@ -295,12 +303,19 @@
     <ClCompile Include="..\..\..\3rd\lua-5.3.4\src\lvm.c" />
     <ClCompile Include="..\..\..\3rd\lua-5.3.4\src\lzio.c" />
     <ClCompile Include="..\..\..\3rd\mjson\json.c" />
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_event.c" />
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_fix.cc" />
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_is.c" />
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_map.c" />
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_push.c" />
+    <ClCompile Include="..\..\..\3rd\tolua\tolua_to.c" />
     <ClCompile Include="..\..\..\apps\test\main.cpp" />
     <ClCompile Include="..\..\..\apps\test\proto\game.pb.cc" />
     <ClCompile Include="..\..\..\apps\test\proto\pf_cmd_map.cc" />
     <ClCompile Include="..\..\..\database\mysql_wrapper.cpp" />
     <ClCompile Include="..\..\..\database\redis_wrapper.cpp" />
     <ClCompile Include="..\..\..\lua_wrapper\lua_wrapper.cpp" />
+    <ClCompile Include="..\..\..\lua_wrapper\mysql_export_to_lua.cpp" />
     <ClCompile Include="..\..\..\netbus\netbus.cpp" />
     <ClCompile Include="..\..\..\netbus\proto_man.cpp" />
     <ClCompile Include="..\..\..\netbus\service.cpp" />

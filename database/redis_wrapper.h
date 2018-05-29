@@ -1,7 +1,5 @@
 #ifndef __REDIS_WRAPPER_H__
 #define __REDIS_WRAPPER_H__
-#include <vector>
-#include <string>
 
 struct redisReply;
 

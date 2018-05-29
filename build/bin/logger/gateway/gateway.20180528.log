@@ -1,0 +1,8 @@
+20180528 20:30:51 DEBUG ./main.lua:37  
+Connect success
+20180528 20:30:51 ERROR ..\..\..\lua_wrapper\lua_wrapper.cpp:191  
+[LUA ERROR] ./main.lua:19: bad argument #1 to 'for iterator' (table expected, got nil)
+20180528 20:33:41 DEBUG ./main.lua:37  
+Connect success
+20180528 20:53:56 ERROR trunk:0  
+./main.lua:43: unexpected symbol near '!'
