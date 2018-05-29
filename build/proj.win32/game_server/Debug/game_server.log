@@ -1,5 +1,6 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  mysql_export_to_lua.cpp
+  redis_export_to_lua.cpp
+..\..\..\lua_wrapper\redis_export_to_lua.cpp(57): warning C4018: “<”: 有符号/无符号不匹配
 LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/PROFILE”规范)
 hiredis.lib(hiredis.obj) : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:LBR”规范)
 libprotobufd.lib(arena.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(arena.obj)”或在“D:\mserver\build\proj.win32\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样

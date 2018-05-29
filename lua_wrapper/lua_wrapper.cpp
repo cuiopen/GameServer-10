@@ -4,6 +4,7 @@
 #include "tolua++.h"
 #include "tolua_fix.h"
 #include "mysql_export_to_lua.h"
+#include "redis_export_to_lua.h"
 
 
 #include <stdlib.h>
@@ -115,7 +116,7 @@ void LuaWrapper::LuaInit()
 		lua_atpanic(ls, lua_panic);
 		toluafix_open(ls);
 		RegisterMysqlExport(ls);
-
+		RegisterRedisExport(ls);
 		RegFunc2lua("log_error", lua_log_error);
 		RegFunc2lua("log_debug", lua_log_debug);
 		RegFunc2lua("log_warning", lua_log_warning);

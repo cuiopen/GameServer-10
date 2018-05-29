@@ -1,0 +1,2 @@
+20180529 18:37:06 ERROR ..\..\..\lua_wrapper\lua_wrapper.cpp:192  
+[LUA ERROR] ./main.lua:19: bad argument #1 to 'for iterator' (table expected, got string)

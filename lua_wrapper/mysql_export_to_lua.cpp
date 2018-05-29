@@ -94,26 +94,39 @@ int lua_mysql_connect(lua_State* L)
 	if (ip==NULL)
 	{
 		log_error("can't read ip");
+		return 1;
 	}
 
 	int port = (int)tolua_tonumber(L, 2, NULL);
+	if (port == NULL) {
+		log_error("can't read PORT");
+		return 1;
+	}
 
 	char* db_name = (char*)tolua_tostring(L, 3, NULL);
 	if (db_name == NULL) {
 		log_error("can't read db_name");
+		return 1;
 	}
 
 	char* uname = (char*)tolua_tostring(L, 4, NULL);
 	if (uname == NULL) {
 		log_error("can't read uname");
+		return 1;
 	}
 
 	char* upwd = (char*)tolua_tostring(L, 5, NULL);
 	if (upwd == NULL) {
 		log_error("can't read upwd");
+		return 1;
 	}
 
 	int handler = toluafix_ref_function(L, 6, NULL);
+	if (handler == NULL)
+	{
+		log_error("can't read FOO");
+		return 1;
+	}
 	MysqlWrapper::Connect(ip, port, db_name, uname, upwd, on_open_cb, (void*)handler);
 
 	return 0;
@@ -133,25 +146,25 @@ int lua_mysql_query(lua_State* L)
 	void* context = tolua_touserdata(LuaWrapper::GetLuaState(), 1, 0);
 	if (!context) 
 	{
+		log_error("can't read CMD object");
 		return 1;
 	}
 	char* sql = (char*)tolua_tostring(L, 2, NULL);
 	if (sql == NULL) 
 	{
+		log_error("can't read CMD");
 		return 1;
 	}
 	int handler = toluafix_ref_function(L, 3, NULL);
-	if (handler==0)
+	if (handler == NULL)
 	{
+		log_error("can't read FOO");
 		return 1;
 	}
 
 	MysqlWrapper::Query(context, sql, on_query_cb, (void*)handler);
 	return 0;
 }
-
-
-
 
 int RegisterMysqlExport(lua_State* L)
 {

@@ -28,7 +28,7 @@ function PrintTable(table , level)
   print(indent .. "}")
 
 end
-
+--[[
 MysqlWrapper.Connect("127.0.0.1", 3306, "test", "root","123456",function (err,context)
     if(err) then
         print(err)
@@ -51,4 +51,32 @@ MysqlWrapper.Connect("127.0.0.1", 3306, "test", "root","123456",function (err,co
         MysqlWrapper.Close(context);
     end
 
-end )
+end )]]
+RedisWrapper.Connect("127.0.0.1",6379, function(err,context)
+    if(err) then
+        print(err)
+        return
+    else
+        print("Connect success")
+        RedisWrapper.Query(context, "hmset 001001 name \"Vetex\" age \"20\"", function (err, ret)
+            if err then
+                print(err)
+                return;
+            end
+            if type(ret)=="table" then
+                PrintTable(ret)
+                print("query success")
+                return;
+            else
+                if ret then
+                    print(ret)
+                else
+                    print("result is null")
+                end
+
+            end
+        end)
+        RedisWrapper.Close(context);
+    end
+
+end)

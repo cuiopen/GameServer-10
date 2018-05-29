@@ -1,7 +1,7 @@
 #ifdef WIN32
-#include <hiredis.h>
+#include "hiredis.h"
 #define NO_QFORKIMPL //这一行必须加才能正常使用
-#include <Win32_Interop/win32fixes.h>
+#include "Win32_Interop/win32fixes.h"
 #endif // WIN32
 
 #include "redis_wrapper.h"
@@ -27,11 +27,11 @@ struct connect_req
 {
 	char* ip;
 	int port;
-	void(*open_cb)(const char* err, void* context);
+	void(*open_cb)(const char* err, void* context, void* udata);
 
 	char* err;
 	void* context;
-
+	void* udata;
 
 };
 
@@ -39,9 +39,9 @@ struct query_req
 {
 	void* context;
 	char* cmd;
-	char* error;
-	void(*query_cb)(const char* err, redisReply* replay);
+	void(*query_cb)(redisReply* replay, void* udata);
 	redisReply* res;
+	void* udata;
 };
 
 
@@ -73,7 +73,7 @@ extern "C"
 	on_work_complete(uv_work_t* req, int status)
 	{
 		connect_req* r = (connect_req*)req->data;
-		r->open_cb(r->err, r->context);
+		r->open_cb(r->err, r->context, r->udata);
 		if (r->ip)
 		{
 			free(r->ip);
@@ -109,13 +109,10 @@ extern "C"
 	static void
 	query_work(uv_work_t* req)
 	{
-
-
 		query_req* r = (query_req*)req->data;
 		redis_context* c = (redis_context*)r->context;
 		redisContext* rc = (redisContext*)c->pConn;
 		uv_mutex_lock(&c->lock);
-		r->error = NULL;
 		redisReply* res =(redisReply*)redisCommand(rc, r->cmd);
 		if (res)
 		{
@@ -129,14 +126,10 @@ extern "C"
 	on_query_complete(uv_work_t* req, int status)
 	{
 		query_req* r = (query_req*)req->data;
-		r->query_cb(r->error, r->res);
+		r->query_cb(r->res,r->udata);
 		if (r->cmd)
 		{
 			free(r->cmd);
-		}
-		if (r->error)
-		{
-			free(r->error);
 		}
 		if (r->res)
 		{
@@ -153,7 +146,7 @@ extern "C"
 
 
 void 
-RedisWrapper::Connect(char* ip, int port,void(*open_cb)(const char* err, void* context))
+RedisWrapper::Connect(char* ip, int port,void(*open_cb)(const char* err, void* context, void* udata), void* udata)
 {
 	uv_work_t* w = (uv_work_t*)my_malloc(sizeof(uv_work_t));
 	memset(w, 0, sizeof(uv_work_t));
@@ -163,6 +156,7 @@ RedisWrapper::Connect(char* ip, int port,void(*open_cb)(const char* err, void* c
 	r->ip = strdup(ip);
 	r->port = port;
 	r->open_cb = open_cb;
+	r->udata = udata;
 
 	w->data = (void*)r;
 	uv_queue_work(uv_default_loop(), w, connect_work, on_work_complete);
@@ -181,7 +175,7 @@ void RedisWrapper::Close(void* context)
 }
 
 void 
-RedisWrapper::Query(void* context, char* cmd, void(*query_cb)(const char* err,							  redisReply* replay))
+RedisWrapper::Query(void* context, char* cmd, void(*query_cb)(redisReply* replay, void* udata), void* udata)
 {
 	//redisContext* c = (redisContext*)context;
 	//if (c->is_closing)
@@ -196,6 +190,7 @@ RedisWrapper::Query(void* context, char* cmd, void(*query_cb)(const char* err,		
 	r->query_cb = query_cb;
 	r->cmd = strdup(cmd);
 	w->data = (void*)r;
+	r->udata = udata;
 	
 	uv_queue_work(uv_default_loop(), w, query_work, on_query_complete);
 

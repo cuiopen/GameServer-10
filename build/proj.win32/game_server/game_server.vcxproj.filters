@@ -291,6 +291,9 @@
     <ClInclude Include="..\..\..\database\redis_wrapper.h">
       <Filter>database</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\lua_wrapper\redis_export_to_lua.h">
+      <Filter>lua_wrapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\3rd\libuv\src\fs-poll.c">
@@ -577,6 +580,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\database\redis_wrapper.cpp">
       <Filter>database</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\lua_wrapper\redis_export_to_lua.cpp">
+      <Filter>lua_wrapper</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

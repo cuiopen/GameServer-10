@@ -3,14 +3,15 @@
 
 struct redisReply;
 
+
 class RedisWrapper 
 {
 public:
-	static void Connect(char* ip, int port,void(*open_cb)(const char* err, void* context));
+	static void Connect(char* ip, int port,void(*open_cb)(const char* err, void* context,void* udata), void* udata);
 
 	static void Close(void* context);
 
-	static void Query(void* context,char* cmd,void(*query_cb)(const char* err, redisReply* replay));
+	static void Query(void* context,char* cmd,void(*query_cb)(redisReply* replay, void* udata), void* udata);
 };
 
 
