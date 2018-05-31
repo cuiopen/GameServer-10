@@ -4,27 +4,31 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <map>
 
 #define MAX_PF_MAP_SIZE 1024
 static int pro_type = PROTO_BUF;
 static char* g_pf_map[MAX_PF_MAP_SIZE];
 static int g_cmd_count = 0;
 
+static std::map <int, std::string>g_pf_cmd_map;
+
 static google::protobuf::Message* create_message(const char* typeName) 
 {
 	google::protobuf::Message* message = NULL;
 	const google::protobuf::Descriptor* descriptor = google::protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
-	if (descriptor) {
+	if (descriptor) 
+	{
 		const google::protobuf::Message* prototype = google::protobuf::MessageFactory::generated_factory()->GetPrototype(descriptor);
-		if (prototype) {
+		if (prototype) 
+		{
 			message = prototype->New();
 		}
 	}
 	return message;
 }
 
-static void
-release_message(google::protobuf::Message* msg)
+static void release_message(google::protobuf::Message* msg)
 {
 	delete msg;
 }
@@ -44,6 +48,17 @@ void ProtoMan::RegisterPFCmdMap(char** pf_map, int len)
 	}
 	g_cmd_count += len;
 }
+
+void 
+ProtoMan::RegisterPFCmdMap(std::map<int, std::string>& map)
+{
+	std::map<int, std::string>::iterator it;
+	for (it=map.begin();it!= map.end();it++)
+	{
+		g_pf_cmd_map[it->first] = it->second;
+	}
+}
+
 int ProtoMan::ProtoType()
 {
 	return pro_type;

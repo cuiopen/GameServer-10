@@ -27,6 +27,7 @@ bool ServiceMan::RegisterService(int stype, Service* s)
 	g_service_set[stype] = s;
 	return true;
 }
+
 bool ServiceMan::OnRecvCmdMsg(Session* s, struct CmdMsg* msg)
 {
 	if (g_service_set[msg->stype]==NULL)
@@ -36,10 +37,9 @@ bool ServiceMan::OnRecvCmdMsg(Session* s, struct CmdMsg* msg)
 	return g_service_set[msg->stype]->OnSessionRecvCmd(s,msg);
 }
 
-
 void ServiceMan::OnSessionDisconnect(Session* s)
 {
-	//此处可优化
+
 	for (int i = 0; i < MAX_SERVICE; i++)
 	{
 		if (g_service_set[i]==NULL)

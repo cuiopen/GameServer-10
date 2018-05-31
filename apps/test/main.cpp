@@ -70,7 +70,7 @@ on_query_cb(const char* err, MYSQL_RES* result,void* udata)
 
 int main(int argc,char* argv[])
 {
-	//ProtoMan::Init(PROTO_BUF);
+	
 	//InitPFCmdMap();
 
 	//log_debug("%d", timestamp());
@@ -86,6 +86,7 @@ int main(int argc,char* argv[])
 	logger::init("logger/gateway/", "gateway", true);
 	LuaWrapper::LuaInit();
 	LuaWrapper::LuaExec("./main.lua");
+	ProtoMan::Init(PROTO_BUF);
 	Netbus *nb = Netbus::instance();
 	nb->Init();
 	nb->StartTcpServer(6080);

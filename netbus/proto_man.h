@@ -16,6 +16,7 @@ class ProtoMan {
 public:
 	static void Init(int proto_type);
 	static void RegisterPFCmdMap(char** pf_map, int len);
+	static void RegisterPFCmdMap(std::map<int, std::string>& map);
 	static int ProtoType();
 	static bool DecodeCmdMsg(unsigned char* cmd, int cmd_len, struct CmdMsg** out_msg);
 	static void CmdMsgFree(struct CmdMsg* msg);

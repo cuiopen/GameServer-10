@@ -52,6 +52,7 @@ MysqlWrapper.Connect("127.0.0.1", 3306, "test", "root","123456",function (err,co
     end
 
 end )]]
+--[[
 RedisWrapper.Connect("127.0.0.1",6379, function(err,context)
     if(err) then
         print(err)
@@ -79,4 +80,17 @@ RedisWrapper.Connect("127.0.0.1",6379, function(err,context)
         RedisWrapper.Close(context);
     end
 
-end)
+end)]]
+
+local my_service = {
+  -- msg {1: stype, 2 ctype, 3 utag, 4 body_table_or_str}
+  on_session_recv_cmd = function(session, msg)
+    
+  end,
+
+  on_session_disconnect = function(session)
+  end
+}
+
+local ret = Service.RegisterService(100, my_service)
+print(ret);
