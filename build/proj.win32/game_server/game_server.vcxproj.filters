@@ -297,6 +297,9 @@
     <ClInclude Include="..\..\..\lua_wrapper\service_export_to_lua.h">
       <Filter>lua_wrapper</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\lua_wrapper\session_export_to_lua.h">
+      <Filter>lua_wrapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\3rd\libuv\src\fs-poll.c">
@@ -588,6 +591,9 @@
       <Filter>lua_wrapper</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\lua_wrapper\service_export_to_lua.cpp">
+      <Filter>lua_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\lua_wrapper\session_export_to_lua.cpp">
       <Filter>lua_wrapper</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,16 +3,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
+#include <map>
 
 
-
-char* pf_cmd_map[] =
+std::map<int, std::string> map =
 {
-	"LoginReq",
-	"LoginRes"
+	{0,"LoginReq"},
+	{ 1,"LoginRes" },
 };
 
 void InitPFCmdMap()
 {
-	ProtoMan::RegisterPFCmdMap(pf_cmd_map, sizeof(pf_cmd_map) / sizeof(char*));
+	ProtoMan::RegisterPFCmdMap(map);
 }

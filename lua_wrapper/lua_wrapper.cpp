@@ -6,6 +6,7 @@
 #include "mysql_export_to_lua.h"
 #include "redis_export_to_lua.h"
 #include "service_export_to_lua.h"
+#include "session_export_to_lua.h"
 
 
 #include <stdlib.h>
@@ -119,6 +120,7 @@ void LuaWrapper::LuaInit()
 		RegisterMysqlExport(ls);
 		RegisterRedisExport(ls);
 		RegisterServiceExport(ls);
+		RegisterSessionExport(ls);
 		RegFunc2lua("log_error", lua_log_error);
 		RegFunc2lua("log_debug", lua_log_debug);
 		RegFunc2lua("log_warning", lua_log_warning);

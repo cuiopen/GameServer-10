@@ -8,12 +8,11 @@
 
 #define MAX_PF_MAP_SIZE 1024
 static int pro_type = PROTO_BUF;
-static char* g_pf_map[MAX_PF_MAP_SIZE];
-static int g_cmd_count = 0;
+
 
 static std::map <int, std::string>g_pf_cmd_map;
 
-static google::protobuf::Message* create_message(const char* typeName) 
+ google::protobuf::Message* ProtoMan::create_message(const char* typeName)
 {
 	google::protobuf::Message* message = NULL;
 	const google::protobuf::Descriptor* descriptor = google::protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
@@ -28,7 +27,7 @@ static google::protobuf::Message* create_message(const char* typeName)
 	return message;
 }
 
-static void release_message(google::protobuf::Message* msg)
+void ProtoMan::release_message(google::protobuf::Message* msg)
 {
 	delete msg;
 }
@@ -36,17 +35,6 @@ static void release_message(google::protobuf::Message* msg)
 void ProtoMan::Init(int proto_type)
 {
 	pro_type = proto_type;
-}
-void ProtoMan::RegisterPFCmdMap(char** pf_map, int len)
-{
-	len = (MAX_PF_MAP_SIZE - g_cmd_count) < len ? (MAX_PF_MAP_SIZE - g_cmd_count) : len;//丢掉超过最大值部分的命令
-
-	
-	for (int i = 0; i < len; i++)
-	{
-		g_pf_map[g_cmd_count + i] = strdup(pf_map[i]);
-	}
-	g_cmd_count += len;
 }
 
 void 
@@ -83,8 +71,6 @@ bool ProtoMan::DecodeCmdMsg(unsigned char* cmd, int cmd_len, struct CmdMsg** out
 	else
 	{
 		//此处可解密
-
-
 		if (pro_type == PROTO_JSON)
 		{
 			int json_len = cmd_len - 8 + 1;
@@ -95,13 +81,8 @@ bool ProtoMan::DecodeCmdMsg(unsigned char* cmd, int cmd_len, struct CmdMsg** out
 		}
 		else
 		{
-			if (g_pf_map[msg->ctype] == NULL || msg->ctype < 0 || msg->ctype >= g_cmd_count)
-			{
-				free(msg);
-				*out_msg = NULL;
-				return false;
-			}
-			google::protobuf::Message* pro_msg = create_message(g_pf_map[msg->ctype]);
+		
+			google::protobuf::Message* pro_msg = create_message(g_pf_cmd_map[msg->ctype].c_str());
 			if (pro_msg==NULL)
 			{
 				free(msg);
@@ -120,6 +101,12 @@ bool ProtoMan::DecodeCmdMsg(unsigned char* cmd, int cmd_len, struct CmdMsg** out
 	}
 	*out_msg = msg;
 	return true;
+}
+
+const char*
+ProtoMan:: CtypeToName(int ctype)
+{
+	return g_pf_cmd_map[ctype].c_str();
 }
 
 void ProtoMan::CmdMsgFree(struct CmdMsg* msg)

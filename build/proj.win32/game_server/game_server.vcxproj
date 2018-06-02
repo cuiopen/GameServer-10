@@ -220,6 +220,7 @@
     <ClInclude Include="..\..\..\lua_wrapper\mysql_export_to_lua.h" />
     <ClInclude Include="..\..\..\lua_wrapper\redis_export_to_lua.h" />
     <ClInclude Include="..\..\..\lua_wrapper\service_export_to_lua.h" />
+    <ClInclude Include="..\..\..\lua_wrapper\session_export_to_lua.h" />
     <ClInclude Include="..\..\..\netbus\netbus.h" />
     <ClInclude Include="..\..\..\netbus\proto_man.h" />
     <ClInclude Include="..\..\..\netbus\service.h" />
@@ -320,6 +321,7 @@
     <ClCompile Include="..\..\..\lua_wrapper\mysql_export_to_lua.cpp" />
     <ClCompile Include="..\..\..\lua_wrapper\redis_export_to_lua.cpp" />
     <ClCompile Include="..\..\..\lua_wrapper\service_export_to_lua.cpp" />
+    <ClCompile Include="..\..\..\lua_wrapper\session_export_to_lua.cpp" />
     <ClCompile Include="..\..\..\netbus\netbus.cpp" />
     <ClCompile Include="..\..\..\netbus\proto_man.cpp" />
     <ClCompile Include="..\..\..\netbus\service.cpp" />
