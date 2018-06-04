@@ -7,8 +7,9 @@
 #include "redis_export_to_lua.h"
 #include "service_export_to_lua.h"
 #include "session_export_to_lua.h"
+#include "scheduler_export_to_lua.h"
 
-
+#include <string>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -60,33 +61,125 @@ extern "C"
 		}
 	}
 	static int
-	lua_log_debug(lua_State *L) 
+	lua_log_debug(lua_State *luastate)
 	{
-		const char* msg = luaL_checkstring(L, -1);
-		if (msg) { // file_name, line_num
-			do_log_message(log_DBUG, msg);
+		int nargs = lua_gettop(luastate);
+		std::string t;
+		for (int i = 1; i <= nargs; i++)
+		{
+			if (lua_istable(luastate, i))
+				t += "table";
+			else if (lua_isnone(luastate, i))
+				t += "none";
+			else if (lua_isnil(luastate, i))
+				t += "nil";
+			else if (lua_isboolean(luastate, i))
+			{
+				if (lua_toboolean(luastate, i) != 0)
+					t += "true";
+				else
+					t += "false";
+			}
+			else if (lua_isfunction(luastate, i))
+				t += "function";
+			else if (lua_islightuserdata(luastate, i))
+				t += "lightuserdata";
+			else if (lua_isthread(luastate, i))
+				t += "thread";
+			else
+			{
+				const char * str = lua_tostring(luastate, i);
+				if (str)
+					t += lua_tostring(luastate, i);
+				else
+					t += lua_typename(luastate, lua_type(luastate, i));
+			}
+			if (i != nargs)
+				t += "\t";
 		}
+		do_log_message(log_DBUG, t.c_str());
 		return 0;
 	}
 
 	static int
-	lua_log_warning(lua_State *L) 
+	lua_log_warning(lua_State *luastate)
 	{
-		const char* msg = luaL_checkstring(L, -1);
-		if (msg) { // file_name, line_num
-			do_log_message(log_WARNING, msg);
+		int nargs = lua_gettop(luastate);
+		std::string t;
+		for (int i = 1; i <= nargs; i++)
+		{
+			if (lua_istable(luastate, i))
+				t += "table";
+			else if (lua_isnone(luastate, i))
+				t += "none";
+			else if (lua_isnil(luastate, i))
+				t += "nil";
+			else if (lua_isboolean(luastate, i))
+			{
+				if (lua_toboolean(luastate, i) != 0)
+					t += "true";
+				else
+					t += "false";
+			}
+			else if (lua_isfunction(luastate, i))
+				t += "function";
+			else if (lua_islightuserdata(luastate, i))
+				t += "lightuserdata";
+			else if (lua_isthread(luastate, i))
+				t += "thread";
+			else
+			{
+				const char * str = lua_tostring(luastate, i);
+				if (str)
+					t += lua_tostring(luastate, i);
+				else
+					t += lua_typename(luastate, lua_type(luastate, i));
+			}
+			if (i != nargs)
+				t += "\t";
 		}
+		do_log_message(log_WARNING, t.c_str());
 		return 0;
 	}
 
 	static int
-	lua_log_error(lua_State *L) 
+	lua_log_error(lua_State *luastate)
 	{
-		const char* msg = luaL_checkstring(L, -1);
-		if (msg)
-		{ // file_name, line_num
-			do_log_message(log_ERROR, msg);
+		int nargs = lua_gettop(luastate);
+		std::string t;
+		for (int i = 1; i <= nargs; i++)
+		{
+			if (lua_istable(luastate, i))
+				t += "table";
+			else if (lua_isnone(luastate, i))
+				t += "none";
+			else if (lua_isnil(luastate, i))
+				t += "nil";
+			else if (lua_isboolean(luastate, i))
+			{
+				if (lua_toboolean(luastate, i) != 0)
+					t += "true";
+				else
+					t += "false";
+			}
+			else if (lua_isfunction(luastate, i))
+				t += "function";
+			else if (lua_islightuserdata(luastate, i))
+				t += "lightuserdata";
+			else if (lua_isthread(luastate, i))
+				t += "thread";
+			else
+			{
+				const char * str = lua_tostring(luastate, i);
+				if (str)
+					t += lua_tostring(luastate, i);
+				else
+					t += lua_typename(luastate, lua_type(luastate, i));
+			}
+			if (i != nargs)
+				t += "\t";
 		}
+		do_log_message(log_ERROR, t.c_str());
 		return 0;
 	}
 
@@ -107,7 +200,43 @@ lua_State* LuaWrapper::GetLuaState()
 	return ls;
 }
 
+static int
+lua_log_init(lua_State* ls)
+{
+	const char* path = lua_tostring(ls, 1);
+	if (path==NULL)
+	{
+		return 0;
+	}
+	const char* prefix = lua_tostring(ls, 2);
+	if (prefix==NULL)
+	{
+		return 0;
+	}
+	bool std_out = lua_toboolean(ls, 3);
+	logger::init((char*)path, (char*)prefix, std_out);
+}
 
+
+static int
+RegisterLoggerExport(lua_State* ls)
+{
+	LuaWrapper::RegFunc2lua("print", lua_log_debug);
+	lua_getglobal(ls, "_G");
+	if (lua_istable(ls, -1)) {
+		tolua_open(ls);
+		tolua_module(ls, "Logger", 0);
+		tolua_beginmodule(ls, "Logger");
+
+		tolua_function(ls, "Debug", lua_log_debug);
+		tolua_function(ls, "Warning", lua_log_warning);
+		tolua_function(ls, "Error", lua_log_error);
+		tolua_function(ls, "Init", lua_log_init);
+		tolua_endmodule(ls);
+	}
+	lua_pop(ls, 1);
+	return 0;
+}
 
 void LuaWrapper::LuaInit()
 {
@@ -117,13 +246,12 @@ void LuaWrapper::LuaInit()
 		luaL_openlibs(ls);
 		lua_atpanic(ls, lua_panic);
 		toluafix_open(ls);
+		RegisterLoggerExport(ls);
 		RegisterMysqlExport(ls);
 		RegisterRedisExport(ls);
 		RegisterServiceExport(ls);
 		RegisterSessionExport(ls);
-		RegFunc2lua("log_error", lua_log_error);
-		RegFunc2lua("log_debug", lua_log_debug);
-		RegFunc2lua("log_warning", lua_log_warning);
+		RegisterSchedulerExport(ls);
 	}
 }
 void LuaWrapper::LuaExit()

@@ -1,0 +1,84 @@
+20180603 19:14:02 DEBUG ./main.lua:1  
+hello world
+20180603 19:14:02 DEBUG ./main.lua:96  
+111
+20180603 19:49:43 DEBUG ./main.lua:1  
+hello world
+20180603 19:49:43 WARNING ./main.lua:2  
+hello world
+20180603 19:49:43 ERROR ./main.lua:3  
+hello world
+20180603 19:49:43 DEBUG ./main.lua:96  
+1.0
+20180603 19:52:50 DEBUG ./main.lua:1  
+hello world
+20180603 19:52:50 WARNING ./main.lua:2  
+hello world
+20180603 19:52:50 ERROR ./main.lua:3  
+hello world
+20180603 19:52:50 DEBUG ./main.lua:96  
+1.0
+20180603 19:52:55 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:06 DEBUG ./main.lua:1  
+hello world
+20180603 19:53:06 WARNING ./main.lua:2  
+hello world
+20180603 19:53:06 ERROR ./main.lua:3  
+hello world
+20180603 19:53:06 DEBUG ./main.lua:96  
+1.0
+20180603 19:53:11 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:12 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:13 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:14 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:15 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:50 DEBUG ./main.lua:1  
+hello world
+20180603 19:53:50 WARNING ./main.lua:2  
+hello world
+20180603 19:53:50 ERROR ./main.lua:3  
+hello world
+20180603 19:53:50 DEBUG ./main.lua:96  
+1.0
+20180603 19:53:55 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:56 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:57 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:58 DEBUG ./main.lua:99  
+schedule test
+20180603 19:53:59 DEBUG ./main.lua:99  
+schedule test
+20180603 19:54:00 DEBUG ./main.lua:99  
+schedule test
+20180603 19:54:01 DEBUG ./main.lua:99  
+schedule test
+20180603 19:54:02 DEBUG ./main.lua:99  
+schedule test
+20180603 19:54:03 DEBUG ./main.lua:99  
+schedule test
+20180603 19:54:04 DEBUG ./main.lua:99  
+schedule test
+20180603 19:58:45 DEBUG ./main.lua:1  
+hello world
+20180603 19:58:45 WARNING ./main.lua:2  
+hello world
+20180603 19:58:45 ERROR ./main.lua:3  
+hello world
+20180603 19:58:45 DEBUG ./main.lua:96  
+1.0
+20180603 19:58:50 DEBUG ./main.lua:99  
+schedule test
+20180603 19:58:51 DEBUG ./main.lua:99  
+schedule test
+20180603 19:58:52 DEBUG ./main.lua:99  
+schedule test
+20180603 19:58:53 DEBUG ./main.lua:103  
+once test

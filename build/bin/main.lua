@@ -1,6 +1,6 @@
-
-
-
+Logger.Debug("hello world")
+Logger.Warning("hello world")
+Logger.Error("hello world")
 key = ""
 function PrintTable(table , level)
   level = level or 1
@@ -94,3 +94,13 @@ local my_service = {
 
 local ret = Service.RegisterService(100, my_service)
 print(ret);
+
+local timer=Scheduler.Schedule(function ( ... )
+  print("schedule test")
+end,5000,-1,1000);
+Scheduler.Once(function ( ... )
+  -- body
+  print("once test")
+  Scheduler.Cancel(timer);
+end,8000);
+

@@ -1,35 +1,4 @@
-﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  lua_wrapper.cpp
-  session_export_to_lua.cpp
-..\..\..\lua_wrapper\session_export_to_lua.cpp(64): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
-..\..\..\lua_wrapper\session_export_to_lua.cpp(69): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
-..\..\..\lua_wrapper\session_export_to_lua.cpp(113): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
-..\..\..\lua_wrapper\session_export_to_lua.cpp(118): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
-..\..\..\lua_wrapper\session_export_to_lua.cpp(224): warning C4244: “初始化”: 从“lua_Number”转换到“float”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(230): warning C4244: “初始化”: 从“lua_Number”转换到“int64_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(236): warning C4244: “初始化”: 从“lua_Number”转换到“uint64_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(242): warning C4244: “初始化”: 从“lua_Number”转换到“int32_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(250): warning C4244: “初始化”: 从“lua_Number”转换到“int32_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(256): warning C4244: “初始化”: 从“lua_Number”转换到“uint32_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(269): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
-..\..\..\lua_wrapper\session_export_to_lua.cpp(326): warning C4244: “初始化”: 从“lua_Number”转换到“float”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(332): warning C4244: “初始化”: 从“lua_Number”转换到“int64_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(338): warning C4244: “初始化”: 从“lua_Number”转换到“uint64_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(344): warning C4244: “初始化”: 从“lua_Number”转换到“int32_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(352): warning C4244: “初始化”: 从“lua_Number”转换到“int32_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(358): warning C4244: “初始化”: 从“lua_Number”转换到“uint32_t”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(371): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
-..\..\..\lua_wrapper\session_export_to_lua.cpp(421): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(422): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
-..\..\..\lua_wrapper\session_export_to_lua.cpp(423): warning C4244: “=”: 从“lua_Integer”转换到“unsigned int”，可能丢失数据
-  正在生成代码...
-d:\mserver\lua_wrapper\session_export_to_lua.cpp(282): warning C4700: 使用了未初始化的局部变量“msg”
-d:\mserver\lua_wrapper\session_export_to_lua.cpp(384): warning C4700: 使用了未初始化的局部变量“msg”
-LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/PROFILE”规范)
+﻿LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/PROFILE”规范)
 hiredis.lib(hiredis.obj) : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:LBR”规范)
 libprotobufd.lib(arena.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(arena.obj)”或在“D:\mserver\build\proj.win32\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
 libprotobufd.lib(extension_set.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(extension_set.obj)”或在“D:\mserver\build\proj.win32\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
